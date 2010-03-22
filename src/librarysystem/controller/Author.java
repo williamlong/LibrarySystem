@@ -27,7 +27,7 @@ public class Author {
     public void addBook(Book book) {
         books.add(book);
     }
-    public List<Long> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
     //NOTE: How about adding support for removing book in books.
