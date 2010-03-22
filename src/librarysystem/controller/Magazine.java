@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author sim
  */
-public abstract class Magazine extends LibraryItem {
+public class Magazine extends LibraryItem {
     private int volume;
     private int issueNo;
     private Date published;
@@ -25,9 +25,6 @@ public abstract class Magazine extends LibraryItem {
     }
 
     public void reserve() {
-
-    }
-    public void addCopy() {
 
     }
     public void getMagazineInfo() {

@@ -14,13 +14,13 @@ import java.util.ArrayList;
  * @author sim
  */
 public class Book extends LibraryItem {    
-        private long isbnA;
-        private long isbnB;
+        private String isbnA;
+        private String isbnB;
         private int version;
         private Date published;
         private List<Author> authors;
 
-    public Book(String title, int maxCheckoutLength, long isbnA, long isbnB,
+    public Book(String title, int maxCheckoutLength, String isbnA, String isbnB,
             int version, Date published) {
         super(title, maxCheckoutLength);
         this.isbnA = isbnA;
@@ -33,10 +33,10 @@ public class Book extends LibraryItem {
     public void reserve() {
         //TODO: code
     }
-    public void addCopy() {
-        //TODO: code
-    }
     public void getBookInfo() {
         //TODO: code
+    }
+    public void addAuthor(Author author) {
+        authors.add(author);
     }
 }

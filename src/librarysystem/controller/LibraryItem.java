@@ -29,6 +29,15 @@ public abstract class LibraryItem {
         copies = new ArrayList<ActualItem>();
     }
 
+    public List<ActualItem> getCopies() {
+        return this.copies;
+    }
+    public void addCopy(ActualItem copy) {
+        copies.add(copy);
+    }
+    public long getItemId() {
+        return itemId;
+    }
+
     public abstract void reserve();
-    public abstract void addCopy();
 }

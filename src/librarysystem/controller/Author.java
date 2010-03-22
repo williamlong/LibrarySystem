@@ -14,12 +14,14 @@ import java.util.ArrayList;
  */
 public class Author {
     private long authorId;
-    private String name;
+    private String fname;
+    private String lname;
     private List<Book> books;
 
-    public Author(String name, Book book) {
+    public Author(String fname, String lname, Book book) {
         authorId = System.currentTimeMillis();
-        this.name = name;
+        this.fname = fname;
+        this.lname = lname;
         books = new ArrayList<Book>();
         books.add(book);
     }
