@@ -23,8 +23,10 @@ public class Member {
     private List<Loan> loans;
     private List<ReturnedLoan> returnedLoans;
 
+    private static List<Member> allMembers;
+
     public Member(String fname, String lname, String address, String telNo) {
-        memberId = System.currentTimeMillis();
+        memberId = SimulatedIdGenerator.getInstance().generateId();
         this.fname = fname;
         this.lname = lname;
         this.address = address;
@@ -32,8 +34,16 @@ public class Member {
 
         reservations = new ArrayList<Reservation>();
         loans = new ArrayList<Loan>();
+
+        if(allMembers == null) {
+            allMembers = new ArrayList<Member>();
+        }
+        allMembers.add(this);
     }
 
+    public long getMemberId() {
+        return memberId;
+    }
     public void addRervation(Reservation reservation) {
         reservations.add(reservation);
     }
@@ -51,5 +61,12 @@ public class Member {
     }
     public List<ReturnedLoan> getLoanHistory() {
         return returnedLoans;
+    }
+    public String getName() {
+        return fname + " " + lname;
+    }
+
+    public static List<Member> getAllMembers() {
+        return allMembers;
     }
 }

@@ -23,7 +23,7 @@ public class ReturnedLoan {
 
     public ReturnedLoan(long loanId, GregorianCalendar actualReturendDate,
             boolean wasOverdue, int overdueDays) {
-        returnedLoanId = System.currentTimeMillis();
+        returnedLoanId = SimulatedIdGenerator.getInstance().generateId();
         this.loanId = loanId;
         this.actualReturnedDate = actualReturnedDate;
         this.wasOverdue = wasOverdue;

@@ -19,7 +19,7 @@ public class Author {
     private List<Book> books;
 
     public Author(String fname, String lname, Book book) {
-        authorId = System.currentTimeMillis();
+        authorId = SimulatedIdGenerator.getInstance().generateId();
         this.fname = fname;
         this.lname = lname;
         books = new ArrayList<Book>();

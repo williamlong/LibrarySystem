@@ -11,6 +11,9 @@ import librarysystem.controller.Author;
 import librarysystem.controller.Member;
 import librarysystem.controller.Book;
 import librarysystem.controller.Magazine;
+import librarysystem.controller.Loan;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,7 +27,7 @@ public class Main {
     public static void main(String[] args) {
         /*Test Plan:
          *
-         * I. Members
+         * I. Members Screen
          * 
          * 1. search member
          * 2. show member
@@ -34,7 +37,7 @@ public class Main {
          * 6. show member history
          * 7. show overdues
          * 
-         * II. Item
+         * II. Item Screen
          * 
          * 1. serach item
          * 2. show item
@@ -44,15 +47,15 @@ public class Main {
          * 6. show book/mag borrowing members
          * 7. show copy borrowing member
          * 8. show copy history
-         * 9. checkout copy
+         * ok 9. checkout copy
          * 10. return copy
          * 11. reserve book/mag
          * 12. reserve copy book/mag
          * 13. create author
          * ok 14. add author
          * 
-         * III. Reservation (next)
-         * IV. Overdue (next)
+         * III. Reservation Screen (next)
+         * IV. Overdue Screen (next)
          *
          * NOTE: We did not emphasis deletion or archiving of elements at this point.
         */
@@ -68,10 +71,12 @@ public class Main {
         GregorianCalendar c2 = new GregorianCalendar(2007, 8-1, 16);
         GregorianCalendar c3 = new GregorianCalendar(2010, 3-1, 10);
         GregorianCalendar c4 = new GregorianCalendar(2010, 3-1, 1);
+
         Book b1 = new Book("Collective Intelligence in Action", 21,
                 "1933988312", "978-1933988313", 1, c1.getTime());
         Book b2 = new Book("Programming Collective Intelligence", 21,
                 "", "", 1, c2.getTime());
+        
         Magazine mag1 = new Magazine("Inc.com", 7, 2010, 310, c3.getTime());
         Magazine mag2 = new Magazine("Entrepreneur", 1, 2010, 301, c4.getTime());
 
@@ -86,21 +91,40 @@ public class Main {
         long b2ItemId = b2.getItemId();
         long m1ItemId = mag1.getItemId();
         long m2ItemId = mag2.getItemId();
-        ActualItem copy1 = new ActualItem(b1ItemId);
-        ActualItem copy2 = new ActualItem(b1ItemId);
-        ActualItem copy3 = new ActualItem(b1ItemId);
+
+        ActualItem b1Copy1 = new ActualItem(b1ItemId);
+        ActualItem b1Copy2 = new ActualItem(b1ItemId);
+        ActualItem b1Copy3 = new ActualItem(b1ItemId);
+
         ActualItem b2Copy1 = new ActualItem(b2ItemId);
         ActualItem b2Copy2 = new ActualItem(b2ItemId);
         ActualItem b2Copy3 = new ActualItem(b2ItemId);
+        
         ActualItem m1Copy1 = new ActualItem(m1ItemId);
         ActualItem m2Copy1 = new ActualItem(m2ItemId);
-        b1.addCopy(copy1);
-        b1.addCopy(copy2);
-        b1.addCopy(copy3);
+
+        b1.addCopy(b1Copy1);
+        b1.addCopy(b1Copy2);
+        b1.addCopy(b1Copy3);
         b2.addCopy(b2Copy1);
         b2.addCopy(b2Copy2);
         b2.addCopy(b2Copy3);
         mag1.addCopy(m1Copy1);
         mag2.addCopy(m2Copy1);
+
+        //II.9 - checkout copy
+        //Member: m4
+        b1Copy1.lend(m4, 21);
+        b2Copy1.lend(m4, 7);
+        m1Copy1.lend(m4, 7);
+        m2Copy1.lend(m4, 3);
+
+        //II.5 - show member loans
+        List<Loan> m4Loans = m4.getLoans();
+        System.out.println("Member: " + m4.getName());
+        System.out.println("    Loans: ");
+        for(Loan loan : m4Loans) {
+            System.out.println("        " + loan.getActualItemTitle());
+        }
     }
 }

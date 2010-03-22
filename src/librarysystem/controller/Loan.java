@@ -37,18 +37,24 @@ public class Loan {
         Date today = Calendar.getInstance().getTime();
         return borrowPeriod.daysLate(today) > 0;
     }
-    public static List<Loan> getAllOverdue() {
-        List<Loan> allOverdue = new ArrayList<Loan>();
-        for(Loan loan : allLoans) {
-            if(loan.isOverdue()) allOverdue.add(loan);
-        }
-        return allOverdue;
-    }
     public void renew(int extensionDays) {
         //Basic renew logic
         GregorianCalendar orgEndCal = borrowPeriod.getEnd();
         GregorianCalendar newEndDate = (GregorianCalendar) orgEndCal.clone();
         newEndDate.add(Calendar.DAY_OF_MONTH, extensionDays);
         borrowPeriod.setNewEndDate(newEndDate);
+    }
+    public String getActualItemTitle() {
+        long itemId = ActualItem.getActualItem(copyId).getItemId();
+        LibraryItem libItem = LibraryItem.getItem(itemId);
+        return libItem.getTitle();
+    }
+
+    public static List<Loan> getAllOverdue() {
+        List<Loan> allOverdue = new ArrayList<Loan>();
+        for(Loan loan : allLoans) {
+            if(loan.isOverdue()) allOverdue.add(loan);
+        }
+        return allOverdue;
     }
 }
