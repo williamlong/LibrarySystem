@@ -30,6 +30,7 @@ public class Loan {
         if(allLoans == null) {
             allLoans = new ArrayList<Loan>();
         }
+        allLoans.add(this);
     }
 
     public boolean isOverdue() {
