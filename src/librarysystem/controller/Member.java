@@ -7,6 +7,9 @@ package librarysystem.controller;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
 
 /**
  *
@@ -19,11 +22,9 @@ public class Member {
     private String address;
     private String telNo;
 
-    private List<Reservation> reservations;
-    private List<Loan> loans;
-    private List<ReturnedLoan> returnedLoans;
-
-    private static List<Member> allMembers;
+    private HashMap<Long, Reservation> reservations;
+    private HashMap<Long, Loan> loans;
+    private HashMap<Long, ReturnedLoan> returnedLoans;
 
     public Member(String fname, String lname, String address, String telNo) {
         memberId = SimulatedIdGenerator.getInstance().generateId();
@@ -32,41 +33,39 @@ public class Member {
         this.address = address;
         this.telNo = telNo;
 
-        reservations = new ArrayList<Reservation>();
-        loans = new ArrayList<Loan>();
-
-        if(allMembers == null) {
-            allMembers = new ArrayList<Member>();
-        }
-        allMembers.add(this);
+        reservations = new HashMap<Long, Reservation>();
+        loans = new HashMap<Long, Loan>();
+        returnedLoans = new HashMap<Long, ReturnedLoan>();
     }
 
     public long getMemberId() {
         return memberId;
     }
-    public void addRervation(Reservation reservation) {
-        reservations.add(reservation);
+    public void addReservation(long copyId, Reservation reservation) {
+        reservations.put(copyId, reservation);
     }
-    public void addLoan(Loan loan) {
-        loans.add(loan);
+    public void removeReservation(long copyId, Reservation reservation) {
+        reservations.remove(copyId);
+    }
+    public void addLoan(long copyId, Loan loan) {
+        loans.put(copyId, loan);
+    }
+    public void removeLoan(long copyId) {
+        loans.remove(copyId);
     }
     public void addReturnedLoan(ReturnedLoan returnedLoan) {
-        returnedLoans.add(returnedLoan);
+        returnedLoans.put(returnedLoan.getReturnedLoanId(), returnedLoan);
     }
-    public List<Reservation> getReservations() {
-        return reservations;
+    public Collection<Reservation> getReservations() {
+        return reservations.values();
     }
-    public List<Loan> getLoans() {
-        return loans;
+    public Collection<Loan> getLoans() {
+        return loans.values();
     }
-    public List<ReturnedLoan> getLoanHistory() {
-        return returnedLoans;
+    public Collection<ReturnedLoan> getLoanHistory() {
+        return returnedLoans.values();
     }
     public String getName() {
         return fname + " " + lname;
-    }
-
-    public static List<Member> getAllMembers() {
-        return allMembers;
     }
 }

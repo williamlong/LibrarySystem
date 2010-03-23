@@ -19,18 +19,12 @@ public class Reservation {
     private long itemId;
     private long memberId;
     private Date reservedDate;
-    private static List<Reservation> allReservations;
-
+    
     public Reservation(long memberId, long itemId) {
         reservationId = SimulatedIdGenerator.getInstance().generateId();
         this.memberId = memberId;
         this.itemId = itemId;
         reservedDate = Calendar.getInstance().getTime(); //today
-
-        if(allReservations == null) {
-            allReservations = new ArrayList<Reservation>();
-        }
-        allReservations.add(this);
     }
 
     public Date getReservedDate() {
@@ -44,8 +38,5 @@ public class Reservation {
     }
     public long getReservationId() {
         return this.reservationId;
-    }
-    public static List<Reservation> getAllReservations() {
-        return allReservations;
     }
 }
