@@ -33,7 +33,7 @@ public class Main {
          * 2. show member
          * 3. edit member
          * ok 4. add member
-         * 5. show member loans
+         * ok 5. show member loans
          * 6. show member history
          * 7. show overdues
          * 
@@ -82,8 +82,8 @@ public class Main {
 
         //II.14 - add author
         Author a1 = new Author("Satnam", "Alag", b1);
-        b1.addAuthor(a1); //NOTE: Improve this workflow.
         Author a2 = new Author("Toby", "Segaran", b2);
+        b1.addAuthor(a1); //NOTE: Improve this workflow.
         b2.addAuthor(a2);
 
         //II.5 - add copy
@@ -119,12 +119,14 @@ public class Main {
         m1Copy1.lend(m4, 7);
         m2Copy1.lend(m4, 3);
 
-        //II.5 - show member loans
+        //I.5 - show member loans
         List<Loan> m4Loans = m4.getLoans();
         System.out.println("Member: " + m4.getName());
         System.out.println("    Loans: ");
         for(Loan loan : m4Loans) {
             System.out.println("        " + loan.getActualItemTitle());
         }
+
+        
     }
 }
