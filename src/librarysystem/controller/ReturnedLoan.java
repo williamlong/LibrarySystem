@@ -5,9 +5,8 @@
 
 package librarysystem.controller;
 
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -16,12 +15,13 @@ import java.util.ArrayList;
 public class ReturnedLoan {
     private long returnedLoanId;
     private long loanId;
-    private GregorianCalendar actualReturnedDate;
+    private Date actualReturnedDate;
     private boolean wasOverdue;
     private int overdueDays;
-    private static List<ReturnedLoan> allReturnedLoans;
 
-    public ReturnedLoan(long loanId, GregorianCalendar actualReturendDate,
+    private static HashMap<Long, ReturnedLoan> allReturnedLoans;
+
+    public ReturnedLoan(long loanId, Date actualReturendDate,
             boolean wasOverdue, int overdueDays) {
         returnedLoanId = SimulatedIdGenerator.getInstance().generateId();
         this.loanId = loanId;
@@ -30,8 +30,14 @@ public class ReturnedLoan {
         this.overdueDays = overdueDays;
 
         if(allReturnedLoans == null) {
-            allReturnedLoans = new ArrayList<ReturnedLoan>();
+            allReturnedLoans = new HashMap<Long, ReturnedLoan>();
         }
-        allReturnedLoans.add(this);
+        allReturnedLoans.put(returnedLoanId, this);
+    }
+    public long getLoanId() {
+        return loanId;
+    }
+    public long getReturnedLoanId() {
+        return returnedLoanId;
     }
 }

@@ -12,8 +12,10 @@ import librarysystem.controller.Member;
 import librarysystem.controller.Book;
 import librarysystem.controller.Magazine;
 import librarysystem.controller.Loan;
-import java.util.List;
-import java.util.ArrayList;
+import librarysystem.controller.ReturnedLoan;
+import librarysystem.controller.Reservation;
+import librarysystem.controller.LibraryItem;
+import java.util.Collection;
 
 /**
  *
@@ -33,9 +35,10 @@ public class Main {
          * 2. show member
          * 3. edit member
          * ok 4. add member
-         * 5. show member loans
-         * 6. show member history
-         * 7. show overdues
+         * ok 5. show member loans
+         * ok 6. show member reservations
+         * ok 7. show member history
+         * 8. show overdues
          * 
          * II. Item Screen
          * 
@@ -48,8 +51,8 @@ public class Main {
          * 7. show copy borrowing member
          * 8. show copy history
          * ok 9. checkout copy
-         * 10. return copy
-         * 11. reserve book/mag
+         * ok 10. return copy
+         * ok 11. reserve book/mag
          * 12. reserve copy book/mag
          * 13. create author
          * ok 14. add author
@@ -114,17 +117,64 @@ public class Main {
 
         //II.9 - checkout copy
         //Member: m4
-        b1Copy1.lend(m4, 21);
-        b2Copy1.lend(m4, 7);
-        m1Copy1.lend(m4, 7);
-        m2Copy1.lend(m4, 3);
+        Loan l1 = b1Copy1.lend(m4, 21);
+        Loan l2 = b2Copy1.lend(m4, 7);
+        Loan l3 = m1Copy1.lend(m4, 7);
+        Loan l4 = m2Copy1.lend(m4, 3);
 
-        //II.5 - show member loans
-        List<Loan> m4Loans = m4.getLoans();
+        //I.5 - show member loans
+        Collection<Loan> m4Loans = m4.getLoans();
         System.out.println("Member: " + m4.getName());
         System.out.println("    Loans: ");
         for(Loan loan : m4Loans) {
             System.out.println("        " + loan.getActualItemTitle());
+        }
+
+        //II.10 - return copy
+        System.out.println("");
+        System.out.println("Now, return a copy: 'Entrepreneur'");
+        System.out.println("");
+
+        ReturnedLoan returnedLoan = m2Copy1.checkin(m4, l4);
+        
+        System.out.println("Member: " + m4.getName());
+        System.out.println("    Loans: ");
+        for(Loan loan : m4Loans) {
+            System.out.println("        " + loan.getActualItemTitle());
+        }
+
+        //II.11 - reserve book/mag
+        System.out.println("");
+        System.out.println("Now, an already checked-out single copy of magazine: 'Inc.com'");
+        System.out.println("Make a reservation: 'Inc.com'");
+
+        Reservation reservation = m1Copy1.reserve(m4);
+
+        //I.6 - show member reservations
+        System.out.println("");
+        System.out.println("Show user reservations: ");        
+
+        Collection<Reservation> m4Reservations = m4.getReservations();
+        System.out.println("Member: " + m4.getName());
+        System.out.println("    Reservations: ");
+        for(Reservation r : m4Reservations) {
+            System.out.println("        " + LibraryItem.getItem(r.getItemId()).getTitle());
+        }
+
+        //I.7 - show member history
+        System.out.println("");
+        System.out.println("Show user loan history: ");        
+
+        Collection<ReturnedLoan> m4ReturnedLoans = m4.getLoanHistory();
+        System.out.println("Member: " + m4.getName());
+        System.out.println("    Returned Loans: ");
+        for(ReturnedLoan rl : m4ReturnedLoans) {
+            long loanId = rl.getLoanId();
+            Loan loan = Loan.getLoan(loanId);
+            long copyId = loan.getCopyId();
+            ActualItem copy = ActualItem.getActualItem(copyId);
+
+            System.out.println("        " + LibraryItem.getItem(copy.getItemId()).getTitle());
         }
     }
 }

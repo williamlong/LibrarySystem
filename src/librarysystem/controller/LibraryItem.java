@@ -25,7 +25,7 @@ public class LibraryItem {
     //      and be able to retrieve objects from record ID.
     private static HashMap<Long, LibraryItem> items;
 
-    public LibraryItem(String title, int maxCheckoutLength) {
+    protected LibraryItem(String title, int maxCheckoutLength) {
         itemId = SimulatedIdGenerator.getInstance().generateId();
         this.title = title;
         this.maxCheckoutLength = maxCheckoutLength;

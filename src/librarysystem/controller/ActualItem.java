@@ -5,6 +5,7 @@
 
 package librarysystem.controller;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -39,18 +40,37 @@ public class ActualItem {
      * @param memberId
      * @param maxCheckoutLength
      */
-    public void lend(Member member, int maxCheckoutLength) {
+    public Loan lend(Member member, int maxCheckoutLength) {
         isBorrowed = true;
         isReserved = false;
         
         Loan loan = new Loan(member.getMemberId(), copyId, maxCheckoutLength);
-        member.addLoan(loan);
+        member.addLoan(copyId, loan);
+        return loan;
     }
-    public void checkin() {
+    public ReturnedLoan checkin(Member member, Loan loan) {
         isBorrowed = false;
+
+        member.removeLoan(copyId);
+        loan.setLoanDone();
+
+        ReturnedLoan returnedLoan = new ReturnedLoan(
+                loan.getLoanId(),
+                GregorianCalendar.getInstance().getTime(),
+                loan.isOverdue(),
+                loan.getOverdueDays());
+
+        member.addReturnedLoan(returnedLoan);
+
+        return returnedLoan;
     }
-    public void reserve() {
+    public Reservation reserve(Member member) {
         isReserved = true;
+
+        Reservation reservation = new Reservation(member.getMemberId(), itemId);
+        member.addReservation(copyId, reservation);
+
+        return reservation;
     }
     public void cancelReservation() {
         isReserved = false;
