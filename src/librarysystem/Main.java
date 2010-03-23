@@ -64,8 +64,8 @@ public class Main {
 
         LibSystem lib = LibSystem.getInstance();
 
-        HashMap<Long, ActualItem> actualItems = lib.getActualItems();
-        HashMap<Long, LibraryItem> items = lib.getAllItems();
+        HashMap<Long, ActualItem> allActualItems = lib.getActualItems();
+        HashMap<Long, LibraryItem> allItems = lib.getAllItems();
         HashMap<Long, Loan> allLoans = lib.getAllLoans();
         HashMap<Long, Member> allMembers = lib.getAllMembers();
         List<Reservation> allReservations = lib.getAllReservations();
@@ -96,10 +96,10 @@ public class Main {
         Magazine mag1 = new Magazine("Inc.com", 7, 2010, 310, c3.getTime());
         Magazine mag2 = new Magazine("Entrepreneur", 1, 2010, 301, c4.getTime());
 
-        items.put(b1.getItemId(), b1);
-        items.put(b2.getItemId(), b2);
-        items.put(mag1.getItemId(), mag1);
-        items.put(mag2.getItemId(), mag2);
+        allItems.put(b1.getItemId(), b1);
+        allItems.put(b2.getItemId(), b2);
+        allItems.put(mag1.getItemId(), mag1);
+        allItems.put(mag2.getItemId(), mag2);
 
         //II.14 - add author
         Author a1 = new Author("Satnam", "Alag", b1);
@@ -124,13 +124,13 @@ public class Main {
         ActualItem m1Copy1 = new ActualItem(m1ItemId);
         ActualItem m2Copy1 = new ActualItem(m2ItemId);
 
-        actualItems.put(b1Copy1.getCopyId(), b1Copy1);
-        actualItems.put(b1Copy2.getCopyId(), b1Copy2);
-        actualItems.put(b1Copy3.getCopyId(), b1Copy3);
-        actualItems.put(b2Copy1.getCopyId(), b2Copy1);
-        actualItems.put(b2Copy2.getCopyId(), b2Copy2);
-        actualItems.put(m1Copy1.getCopyId(), m1Copy1);
-        actualItems.put(m2Copy1.getCopyId(), m2Copy1);
+        allActualItems.put(b1Copy1.getCopyId(), b1Copy1);
+        allActualItems.put(b1Copy2.getCopyId(), b1Copy2);
+        allActualItems.put(b1Copy3.getCopyId(), b1Copy3);
+        allActualItems.put(b2Copy1.getCopyId(), b2Copy1);
+        allActualItems.put(b2Copy2.getCopyId(), b2Copy2);
+        allActualItems.put(m1Copy1.getCopyId(), m1Copy1);
+        allActualItems.put(m2Copy1.getCopyId(), m2Copy1);
 
         b1.addCopy(b1Copy1);
         b1.addCopy(b1Copy2);
@@ -143,7 +143,7 @@ public class Main {
 
         //II.9 - checkout copy
         //Member: m4
-        Loan l1 = b1Copy1.lend(m4, 21);
+        Loan l1 = b1Copy1.lend(m4, 21); //CORRECTION: Refer to LibraryItem's maxCheckoutLength
         Loan l2 = b2Copy1.lend(m4, 7);
         Loan l3 = m1Copy1.lend(m4, 7);
         Loan l4 = m2Copy1.lend(m4, 3);
@@ -159,8 +159,8 @@ public class Main {
         System.out.println("    Loans: ");
         for(Loan loan : m4Loans) {
             long copyId = loan.getCopyId();
-            long itemId = actualItems.get(copyId).getItemId();
-            System.out.println("        " + items.get(itemId).getTitle());
+            long itemId = allActualItems.get(copyId).getItemId();
+            System.out.println("        " + allItems.get(itemId).getTitle());
         }
 
         //II.10 - return copy
@@ -175,8 +175,8 @@ public class Main {
         System.out.println("    Loans: ");
         for(Loan loan : m4Loans) {
             long copyId = loan.getCopyId();
-            long itemId = actualItems.get(copyId).getItemId();
-            System.out.println("        " + items.get(itemId).getTitle());
+            long itemId = allActualItems.get(copyId).getItemId();
+            System.out.println("        " + allItems.get(itemId).getTitle());
         }
 
         //II.11 - reserve book/mag
@@ -195,7 +195,7 @@ public class Main {
         System.out.println("Member: " + m4.getName());
         System.out.println("    Reservations: ");
         for(Reservation r : m4Reservations) {
-            System.out.println("        " + items.get(r.getItemId()).getTitle());
+            System.out.println("        " + allItems.get(r.getItemId()).getTitle());
         }
 
         //I.7 - show member history
@@ -209,9 +209,9 @@ public class Main {
             long loanId = rl.getLoanId();
             Loan loan = allLoans.get(loanId);
             long copyId = loan.getCopyId();
-            ActualItem copy = actualItems.get(copyId);
+            ActualItem copy = allActualItems.get(copyId);
 
-            System.out.println("        " + items.get(copy.getItemId()).getTitle());
+            System.out.println("        " + allItems.get(copy.getItemId()).getTitle());
         }
     }
 }

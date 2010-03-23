@@ -19,7 +19,7 @@ public class SimulatedIdGenerator {
         }
         return instance;
     }
-    public static long generateId() {
+    public long generateId() {
         try {
             java.lang.Thread.sleep(10, 20);
         }
