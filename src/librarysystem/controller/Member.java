@@ -77,4 +77,16 @@ public class Member implements java.io.Serializable {
     public String getName() {
         return fname + " " + lname;
     }
+    public String getFname() {
+        return fname;
+    }
+    public String getLname() {
+        return lname;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getTelNo() {
+        return telNo;
+    }
 }
