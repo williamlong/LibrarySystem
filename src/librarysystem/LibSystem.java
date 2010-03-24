@@ -50,7 +50,7 @@ import librarysystem.controller.Author;
     }
 
     public static ILibrarySystem getInstance() {
-        if(libSystem == null) {
+        if (libSystem == null) {
             libSystem = new LibSystem();
         }
         return libSystem;
@@ -72,6 +72,7 @@ import librarysystem.controller.Author;
             FileInputStream fis = new FileInputStream("LibSystem.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
             LibSystem lib = (LibSystem) ois.readObject();
+            libSystem = lib;
             ois.close();
         }
         catch(Exception e) {
@@ -131,6 +132,7 @@ import librarysystem.controller.Author;
         return loan;
     }
     public ActualItem.COPYSTATUS returnCopy(long copyId) {
+        
         Loan loan = getActiveLoan(copyId);
         loan.setLoanDone();
         
@@ -147,16 +149,22 @@ import librarysystem.controller.Author;
 
         member.removeLoan(copyId);
         member.addReturnedLoan(returnedLoan);
-
+        
         allReturnedLoans.put(returnedLoan.getReturnedLoanId(), returnedLoan);
-
-        //TODO: Mark one available copy as reserve - cannot be lend anymore.
-        //TODO: notify the first member that have reservation
-
-        //TODO: TO_SHELF, TO_RESERVE_BOX
-        //return returnedLoan;
-        return ActualItem.COPYSTATUS.TO_SHELF;
+        
+        LibraryItem item = getItem(copy.getItemId());
+        Reservation reservation = checkFirstReservation(item);
+        if (reservation != null){
+            Member reserveMember = getMember(reservation.getMemberId());
+            notifyForReservation(reserveMember, item);
+            copy.reserve();
+            return ActualItem.COPYSTATUS.TO_RESERVE_BOX;
+        }
+        else{
+            return ActualItem.COPYSTATUS.TO_SHELF;
+        }
     }
+    
     public Reservation reserveCopy(long copyId, long memberId) {
         ActualItem copy = getActualItem(copyId);
         LibraryItem item = getItem(copy.getItemId());
@@ -213,22 +221,6 @@ import librarysystem.controller.Author;
             ActualItem copy = getAvailableReservedCopy(item);
             copy.cancelReservation();
         }
-    }
-    //Need to adjust
-    public boolean checkReservationAsFirst(long reservationId){
-        boolean ret = false;
-        Reservation reservation = getReservation(reservationId);
-
-        Collection<Reservation> reservations = allReservations.values();
-        List<Reservation> reservationsOfItem = new ArrayList<Reservation>();
-        for (Reservation tmp : reservations){
-            if (tmp.getItemId() == reservation.getItemId()){
-                reservationsOfItem.add(tmp);
-            }
-        }
-        Collections.sort(reservationsOfItem);
-        ret = reservationsOfItem.get(0).getReservationId() == reservationId;
-        return ret;
     }
 
     //SCREEN: OVERDUE
@@ -297,5 +289,28 @@ import librarysystem.controller.Author;
             }
         }
         return copy;
+    }
+
+    private void notifyForReservation(Member member, LibraryItem item){
+        //AutoSend a Email or make a Phone call;
+    }
+
+    private Reservation checkFirstReservation(LibraryItem item){
+        Reservation firstReservation = null;
+        if (item.getReservationWithoutNotifyCount() != 0){
+            item.setReservationWithoutNotifyCount(item.getReservationWithoutNotifyCount() - 1);
+
+            //find the first person
+            Collection<Reservation> reservations = allReservations.values();
+            List<Reservation> reservationsOfItem = new ArrayList<Reservation>();
+            for (Reservation tmp : reservations){
+                if (tmp.getItemId() == item.getItemId() && tmp.getStatus() == Reservation.STATUS.NOAVAILABLECOPY){
+                    reservationsOfItem.add(tmp);
+                }
+            }
+            Collections.sort(reservationsOfItem);
+            firstReservation = reservationsOfItem.get(0);
+        }
+        return firstReservation;
     }
 }
