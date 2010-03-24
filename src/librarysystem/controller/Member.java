@@ -59,11 +59,20 @@ public class Member implements java.io.Serializable {
     public Collection<Reservation> getReservations() {
         return reservations.values();
     }
+    public HashMap<Long, Reservation> getReservationsWithKey() {
+        return reservations;
+    }
     public Collection<Loan> getLoans() {
         return loans.values();
     }
+    public HashMap<Long, Loan> getLoansWithKey() {
+        return loans;
+    }
     public Collection<ReturnedLoan> getLoanHistory() {
         return returnedLoans.values();
+    }
+    public HashMap<Long, ReturnedLoan> getLoanHistoryWithKey() {
+        return returnedLoans;
     }
     public String getName() {
         return fname + " " + lname;
