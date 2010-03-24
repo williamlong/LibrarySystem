@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author sim
  */
-public class Reservation {
+public class Reservation implements java.io.Serializable {
     private long reservationId;
     private long itemId;
     private long memberId;

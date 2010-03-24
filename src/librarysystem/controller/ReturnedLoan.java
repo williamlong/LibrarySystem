@@ -6,13 +6,12 @@
 package librarysystem.controller;
 
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  *
  * @author sim
  */
-public class ReturnedLoan {
+public class ReturnedLoan implements java.io.Serializable {
     private long returnedLoanId;
     private long loanId;
     private Date actualReturnedDate;
@@ -27,6 +26,7 @@ public class ReturnedLoan {
         this.wasOverdue = wasOverdue;
         this.overdueDays = overdueDays;
     }
+
     public long getLoanId() {
         return loanId;
     }

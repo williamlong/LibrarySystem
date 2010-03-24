@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author sim
  */
-public class ActualItem {
+public class ActualItem implements java.io.Serializable {
     private long itemId;
     private long copyId;
     private boolean isBorrowed;
@@ -52,6 +52,8 @@ public class ActualItem {
                 loan.getOverdueDays());
 
         member.addReturnedLoan(returnedLoan);
+
+        //FORGOT: increment item available count
 
         return returnedLoan;
     }

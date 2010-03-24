@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author sim
  */
-public class Book extends LibraryItem {    
+public class Book extends LibraryItem implements java.io.Serializable {
         private String isbnA;
         private String isbnB;
         private int version;

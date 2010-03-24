@@ -23,7 +23,6 @@ public class DateRange {
         this.end = new GregorianCalendar();
         this.end.setTime(end);
     }
-
     public DateRange(Date start, int numDays) {
         this.start = new GregorianCalendar();
         this.start.setTime(start);
@@ -41,7 +40,6 @@ public class DateRange {
         else
             return false;
     }
-
     public int daysLate(Date testDate) {
         int days = 0;
 
@@ -68,7 +66,6 @@ public class DateRange {
         }
         return days;
     }
-
     public GregorianCalendar getStart() {
         return (GregorianCalendar) this.start.clone();
     }

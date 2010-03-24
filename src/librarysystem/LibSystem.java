@@ -15,14 +15,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  *
  * @author sim
  */
-public class LibSystem {
+ public class LibSystem implements ILibrarySystem {
     private static LibSystem libSystem;
 
-    private HashMap<Long, ActualItem> actualItems;
+    private HashMap<Long, ActualItem> allActualItems;
     private HashMap<Long, LibraryItem> allItems;
     private HashMap<Long, Loan> allLoans;
     private HashMap<Long, Member> allMembers;
@@ -30,7 +37,7 @@ public class LibSystem {
     private HashMap<Long, ReturnedLoan> allReturnedLoans;
 
     private LibSystem() {
-        actualItems = new HashMap<Long, ActualItem>();
+        allActualItems = new HashMap<Long, ActualItem>();
         allItems = new HashMap<Long, LibraryItem>();
         allLoans = new HashMap<Long, Loan>();
         allMembers = new HashMap<Long, Member>();
@@ -46,8 +53,8 @@ public class LibSystem {
     }
 
     //GET ALL
-    public HashMap<Long, ActualItem> getActualItems() {
-        return actualItems;
+    public HashMap<Long, ActualItem> getAllActualItems() {
+        return allActualItems;
     }
     public HashMap<Long, LibraryItem> getAllItems() {
         return allItems;
@@ -65,5 +72,26 @@ public class LibSystem {
         return allReturnedLoans;
     }
 
-    
+    public void serialize(LibSystem lib) {
+        try {
+            FileOutputStream fos = new FileOutputStream("LibSystem.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(lib);
+            oos.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void deserialize() {
+        try {
+            FileInputStream fis = new FileInputStream("LibSystem.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            LibSystem lib = (LibSystem) ois.readObject();
+            ois.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

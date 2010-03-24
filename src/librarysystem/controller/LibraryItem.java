@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author sim
  */
-public class LibraryItem {
+public abstract class LibraryItem implements java.io.Serializable {
     private long itemId;
     private String title;
     private int maxCheckoutLength;

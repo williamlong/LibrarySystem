@@ -41,7 +41,7 @@ public class Main {
          *
          * II. Item Screen
          *
-         * 1. serach item
+         * 1. search item
          * 2. show item
          * 3. edit item
          * ok 4. add item
@@ -64,7 +64,7 @@ public class Main {
 
         LibSystem lib = LibSystem.getInstance();
 
-        HashMap<Long, ActualItem> allActualItems = lib.getActualItems();
+        HashMap<Long, ActualItem> allActualItems = lib.getAllActualItems();
         HashMap<Long, LibraryItem> allItems = lib.getAllItems();
         HashMap<Long, Loan> allLoans = lib.getAllLoans();
         HashMap<Long, Member> allMembers = lib.getAllMembers();

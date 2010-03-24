@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  *
  * @author sim
  */
-public class Loan {
+public class Loan implements java.io.Serializable {
     private long loanId;
     private long copyId;
     private long memberId;
@@ -46,7 +46,7 @@ public class Loan {
         newEndDate.add(Calendar.DAY_OF_MONTH, extensionDays);
         borrowPeriod.setNewEndDate(newEndDate);
     }
-     public void setLoanDone() {
+    public void setLoanDone() {
         doneLoan = true;
     }
     public long getLoanId() {

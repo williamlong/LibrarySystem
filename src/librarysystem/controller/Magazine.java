@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author sim
  */
-public class Magazine extends LibraryItem {
+public class Magazine extends LibraryItem implements java.io.Serializable {
     private int volume;
     private int issueNo;
     private Date published;

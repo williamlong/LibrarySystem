@@ -15,7 +15,7 @@ import java.util.Collection;
  *
  * @author sim
  */
-public class Member {
+public class Member implements java.io.Serializable {
     private long memberId;
     private String fname;
     private String lname;
