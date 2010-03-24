@@ -41,17 +41,17 @@ public class Member implements java.io.Serializable {
     public long getMemberId() {
         return memberId;
     }
-    public void addReservation(long copyId, Reservation reservation) {
-        reservations.put(copyId, reservation);
+    public void addReservation(Reservation reservation) {
+        reservations.put(reservation.getReservationId(), reservation);
     }
-    public void removeReservation(long copyId, Reservation reservation) {
-        reservations.remove(copyId);
+    public void removeReservation(long reservationId) {
+        reservations.remove(reservationId);
     }
-    public void addLoan(long copyId, Loan loan) {
-        loans.put(copyId, loan);
+    public void addLoan(Loan loan) {
+        loans.put(loan.getLoanId(), loan);
     }
-    public void removeLoan(long copyId) {
-        loans.remove(copyId);
+    public void removeLoan(long loanId) {
+        loans.remove(loanId);
     }
     public void addReturnedLoan(ReturnedLoan returnedLoan) {
         returnedLoans.put(returnedLoan.getReturnedLoanId(), returnedLoan);

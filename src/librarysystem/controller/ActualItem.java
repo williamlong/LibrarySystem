@@ -7,6 +7,7 @@ package librarysystem.controller;
 
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import librarysystem.LibSystem;
 
 /**
  *
@@ -18,6 +19,10 @@ public class ActualItem implements java.io.Serializable {
     private boolean isBorrowed;
     private boolean isReserved;
 
+    public enum COPYSTATUS {
+        TO_SHELF, TO_RESERVE_BOX
+    }
+
     public ActualItem(long itemId) {
         this.itemId = itemId;
         copyId = SimulatedIdGenerator.getInstance().generateId();
@@ -25,47 +30,25 @@ public class ActualItem implements java.io.Serializable {
         isReserved = false;
     }
 
-    /**
-     * Lending happens when there is a real copy available handed down to the librarian.
-     * 
-     * @param memberId
-     * @param maxCheckoutLength
-     */
-    public Loan lend(Member member, int maxCheckoutLength) {
-        isBorrowed = true;
-        isReserved = false;
-        
-        Loan loan = new Loan(member.getMemberId(), copyId, maxCheckoutLength);
-        member.addLoan(copyId, loan);
-        return loan;
+    public void lend() {
+        if (!isBorrowed() && !isReserved()) {
+            isBorrowed = true;
+            LibraryItem item = LibSystem.getInstance().getItem(itemId);
+            item.setAvailableCopyCount(item.getAvailableCopyCount() - 1);
+        }
     }
-    public ReturnedLoan checkin(Member member, Loan loan) {
+    public void checkin() {
         isBorrowed = false;
-
-        member.removeLoan(copyId);
-        loan.setLoanDone();
-
-        ReturnedLoan returnedLoan = new ReturnedLoan(
-                loan.getLoanId(),
-                GregorianCalendar.getInstance().getTime(),
-                loan.isOverdue(),
-                loan.getOverdueDays());
-
-        member.addReturnedLoan(returnedLoan);
-
-        //FORGOT: increment item available count
-
-        return returnedLoan;
+        LibraryItem item = LibSystem.getInstance().getItem(itemId);
+        item.setAvailableCopyCount(item.getAvailableCopyCount() + 1);
     }
-    public Reservation reserve(Member member) {
+    public void reserve() {
         isReserved = true;
-
-        Reservation reservation = new Reservation(member.getMemberId(), itemId);
-        member.addReservation(copyId, reservation);
-
-        return reservation;
     }
     public void cancelReservation() {
+        isReserved = false;
+    }
+    public void reservationIsDone() {
         isReserved = false;
     }
     public boolean isBorrowed() {

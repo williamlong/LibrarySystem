@@ -25,8 +25,8 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        
-        LibSystem lib = LibSystem.getInstance();
+        /*
+        ILibrarySystem lib = LibSystem.getInstance();
 
         HashMap<Long, ActualItem> allActualItems = lib.getAllActualItems();
         HashMap<Long, LibraryItem> allItems = lib.getAllItems();
@@ -179,5 +179,6 @@ public class Main {
 
             System.out.println("        " + allItems.get(copy.getItemId()).getTitle());
         }
+         **/
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.GregorianCalendar;
+import librarysystem.LibSystem;
 
 /**
  *
@@ -23,14 +24,19 @@ public class Loan implements java.io.Serializable {
     private boolean doneLoan;
     private DateRange borrowPeriod;
 
-    public Loan(long memberId, long copyId, int maxCheckoutLength) {
+    public Loan(long memberId, long copyId) {
         loanId = SimulatedIdGenerator.getInstance().generateId();
         this.memberId = memberId;
         this.copyId = copyId;
         doneLoan = false;
-        borrowPeriod = new DateRange(Calendar.getInstance().getTime(), maxCheckoutLength);
+        ActualItem copy = LibSystem.getInstance().getActualItem(copyId);
+        LibraryItem item = LibSystem.getInstance().getItem(copy.getItemId());
+        borrowPeriod = new DateRange(Calendar.getInstance().getTime(), item.getMaxCheckoutLength());
     }
 
+    public boolean isDone() {
+        return doneLoan;
+    }
     public boolean isOverdue() {
         Date today = Calendar.getInstance().getTime();
         return borrowPeriod.daysLate(today) > 0;
