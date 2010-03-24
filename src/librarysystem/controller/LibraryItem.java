@@ -6,8 +6,6 @@
 
 package librarysystem.controller;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 import librarysystem.LibSystem;
 
@@ -21,7 +19,7 @@ public abstract class LibraryItem implements java.io.Serializable {
     private int maxCheckoutLength;
     private int copyCount;
     private int availableCopyCount;
-    private int memberReservationCount;
+    private int reservationWithoutNotifyCount;
     private HashMap<Long, ActualItem> copies;
 
     protected LibraryItem(String title, int maxCheckoutLength) {
@@ -30,7 +28,7 @@ public abstract class LibraryItem implements java.io.Serializable {
         this.maxCheckoutLength = maxCheckoutLength;
         this.copyCount = 0;
         this.availableCopyCount = 0;
-        memberReservationCount = 0;
+        reservationWithoutNotifyCount = 0;
         copies = new HashMap<Long, ActualItem>();
     }
 
@@ -53,11 +51,11 @@ public abstract class LibraryItem implements java.io.Serializable {
     public String getTitle() {
         return title;
     }
-    public int getMemberReservationCount() {
-        return memberReservationCount;
+    public int getReservationWithoutNotifyCount() {
+        return reservationWithoutNotifyCount;
     }
-    public void setMemberReservationCount(int memberReservationCount) {
-        this.memberReservationCount = memberReservationCount;
+    public void setReservationWithoutNotifyCount(int reservationWithoutNotifyCount) {
+        this.reservationWithoutNotifyCount = reservationWithoutNotifyCount;
     }
     public void setAvailableCopyCount(int availableCopyCount) {
         this.availableCopyCount = availableCopyCount;
@@ -75,10 +73,10 @@ public abstract class LibraryItem implements java.io.Serializable {
         return maxCheckoutLength;
     }
     public void reserve() {
-        memberReservationCount++;
+        reservationWithoutNotifyCount++;
     }
     public void unreserve() {
-        memberReservationCount--;
+        reservationWithoutNotifyCount--;
     }
     public abstract String getType();
 }
