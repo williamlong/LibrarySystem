@@ -193,7 +193,7 @@ import librarysystem.controller.Author;
         member.removeReservation(reservationId);
 
         ActualItem copy = getAvailableReservedCopy(item);
-        copy.cancelReservation();
+        copy.reservationIsDone();
 
         allReservations.remove(reservationId);
 
