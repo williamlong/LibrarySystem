@@ -13,17 +13,13 @@ import java.util.HashMap;
  *
  * @author sim
  */
-public class LibraryItem {
+public abstract class LibraryItem implements java.io.Serializable {
     private long itemId;
     private String title;
     private int maxCheckoutLength;
     private int copyCount;
     private int availableCopyCount;
     private HashMap<Long, ActualItem> copies;
-
-    //NOTE: Temporary while we don"t have persistence / db to store record
-    //      and be able to retrieve objects from record ID.
-    private static HashMap<Long, LibraryItem> items;
 
     protected LibraryItem(String title, int maxCheckoutLength) {
         itemId = SimulatedIdGenerator.getInstance().generateId();
@@ -32,11 +28,6 @@ public class LibraryItem {
         this.copyCount = 0;
         this.availableCopyCount = 0;
         copies = new HashMap<Long, ActualItem>();
-
-        if(items == null) {
-            items = new HashMap<Long, LibraryItem>();
-        }
-        items.put(itemId, this);
     }
 
     public HashMap<Long, ActualItem> getCopies() {
@@ -52,9 +43,5 @@ public class LibraryItem {
         return title;
     }
     public void reserve() {
-    }
-
-    public static LibraryItem getItem(long itemId) {
-        return items.get(itemId);
     }
 }

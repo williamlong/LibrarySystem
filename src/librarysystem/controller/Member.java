@@ -15,7 +15,7 @@ import java.util.Collection;
  *
  * @author sim
  */
-public class Member {
+public class Member implements java.io.Serializable {
     private long memberId;
     private String fname;
     private String lname;
@@ -25,8 +25,6 @@ public class Member {
     private HashMap<Long, Reservation> reservations;
     private HashMap<Long, Loan> loans;
     private HashMap<Long, ReturnedLoan> returnedLoans;
-
-    private static HashMap<Long, Member> allMembers;
 
     public Member(String fname, String lname, String address, String telNo) {
         memberId = SimulatedIdGenerator.getInstance().generateId();
@@ -38,11 +36,6 @@ public class Member {
         reservations = new HashMap<Long, Reservation>();
         loans = new HashMap<Long, Loan>();
         returnedLoans = new HashMap<Long, ReturnedLoan>();
-
-        if(allMembers == null) {
-            allMembers = new HashMap<Long, Member>();
-        }
-        allMembers.put(memberId, this);
     }
 
     public long getMemberId() {
@@ -74,9 +67,5 @@ public class Member {
     }
     public String getName() {
         return fname + " " + lname;
-    }
-
-    public static Collection<Member> getAllMembers() {
-        return allMembers.values();
     }
 }

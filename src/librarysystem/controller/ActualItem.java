@@ -12,26 +12,17 @@ import java.util.HashMap;
  *
  * @author sim
  */
-public class ActualItem {
+public class ActualItem implements java.io.Serializable {
     private long itemId;
     private long copyId;
     private boolean isBorrowed;
     private boolean isReserved;
-
-    //NOTE: Temporary while we don"t have persistence / db to store record
-    //      and be able to retrieve objects from record ID.
-    private static HashMap<Long, ActualItem> actualItems;
 
     public ActualItem(long itemId) {
         this.itemId = itemId;
         copyId = SimulatedIdGenerator.getInstance().generateId();
         isBorrowed = false;
         isReserved = false;
-
-        if(actualItems == null) {
-            actualItems = new HashMap<Long, ActualItem>();
-        }
-        actualItems.put(copyId, this);
     }
 
     /**
@@ -62,6 +53,8 @@ public class ActualItem {
 
         member.addReturnedLoan(returnedLoan);
 
+        //FORGOT: increment item available count
+
         return returnedLoan;
     }
     public Reservation reserve(Member member) {
@@ -86,9 +79,5 @@ public class ActualItem {
     }
     public long getItemId() {
         return itemId;
-    }
-
-    public static ActualItem getActualItem(long copyId) {
-        return actualItems.get(copyId);
     }
 }
