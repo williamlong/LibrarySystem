@@ -102,8 +102,10 @@ public class Main {
         allItems.put(mag2.getItemId(), mag2);
 
         //II.14 - add author
-        Author a1 = new Author("Satnam", "Alag", b1);
-        Author a2 = new Author("Toby", "Segaran", b2);
+        //Author a1 = new Author("Satnam", "Alag", b1);
+        //Author a2 = new Author("Toby", "Segaran", b2);
+        Author a1 = new Author("Satnam", "Alag");
+        Author a2 = new Author("Toby", "Segaran");
         b1.addAuthor(a1); //NOTE: Improve this workflow.
         b2.addAuthor(a2);
 

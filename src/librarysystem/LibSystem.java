@@ -26,7 +26,8 @@ import java.io.IOException;
  *
  * @author sim
  */
- public class LibSystem implements ILibrarySystem {
+ //public class LibSystem implements ILibrarySystem {
+public class LibSystem {
     private static LibSystem libSystem;
 
     private HashMap<Long, ActualItem> allActualItems;
