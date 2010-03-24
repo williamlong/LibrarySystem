@@ -19,15 +19,12 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  *
  * @author sim
  */
- //public class LibSystem implements ILibrarySystem {
-public class LibSystem {
+ public class LibSystem implements ILibrarySystem {
     private static LibSystem libSystem;
 
     private HashMap<Long, ActualItem> allActualItems;
@@ -54,24 +51,12 @@ public class LibSystem {
     }
 
     //GET ALL
-    public HashMap<Long, ActualItem> getAllActualItems() {
-        return allActualItems;
-    }
-    public HashMap<Long, LibraryItem> getAllItems() {
-        return allItems;
-    }
-    public HashMap<Long, Loan> getAllLoans() {
-        return allLoans;
-    }
-    public HashMap<Long, Member> getAllMembers() {
-        return allMembers;
-    }
-    public List<Reservation> getAllReservations() {
-        return allReservations;
-    }
-    public HashMap<Long, ReturnedLoan> getAllReturnedLoans() {
-        return allReturnedLoans;
-    }
+    public HashMap<Long, ActualItem> getAllActualItems() { return allActualItems; }
+    public HashMap<Long, LibraryItem> getAllItems() { return allItems; }
+    public HashMap<Long, Loan> getAllLoans() { return allLoans; }
+    public HashMap<Long, Member> getAllMembers() { return allMembers; }
+    public List<Reservation> getAllReservations() { return allReservations; }
+    public HashMap<Long, ReturnedLoan> getAllReturnedLoans() { return allReturnedLoans; }
 
     public void serialize(LibSystem lib) {
         try {
@@ -95,4 +80,34 @@ public class LibSystem {
             e.printStackTrace();
         }
     }
+
+    //SCREEN: MEMBERS
+    public Member getMember(long memberId) {
+        return allMembers.get(memberId);
+    }
+    public Member createMember(String fname, String lname, String address, String telNo) {
+        return new Member(fname, lname, address, telNo);
+    }
+    public HashMap<Long, Loan> getMemberLoans(long memberId) {
+        
+    }
+    public HashMap<Long, ReturnedLoan> getMemberReturnedLoans(long memberId);
+
+    //SCREEN: ITEMS/COPIES/LOANS
+    public HashMap<Long, LibraryItem> getAllItems();
+    public LibraryItem getItem(long itemId);
+    public Book createBook(String title, int maxCheckoutLength, String isbnA, String isbnB, int version, Date published);
+    public Author createAuthor(String fname, String lname);
+    public void addBookAuthor(Book book, Author author);
+    public Magazine createMagazine(String title, int maxCheckoutLength, int volume, int issueNo, Date published);
+    public HashMap<Long, ActualItem> createCopies(long itemId, int numCopies);
+    public Loan lendCopy(long memberId, long copyId);
+    public ReturnedLoan returnCopy(long copyId);
+    public Reservation reserveItem(long copyId, long memberId);
+
+    //SCREEN: RESERVATIONS
+    public List<Reservation> getAllReservations();
+
+    //SCREEN: OVERDUE
+    public HashMap<Long, Loan> getAllOverdue();
 }

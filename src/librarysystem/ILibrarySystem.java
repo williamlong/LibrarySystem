@@ -5,8 +5,6 @@
 
 package librarysystem;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
 import librarysystem.controller.ActualItem;
 import librarysystem.controller.Author;
 import librarysystem.controller.Member;
@@ -16,10 +14,9 @@ import librarysystem.controller.Loan;
 import librarysystem.controller.ReturnedLoan;
 import librarysystem.controller.Reservation;
 import librarysystem.controller.LibraryItem;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.Date;
 import java.util.List;
+import java.util.HashMap;
 
 /**
  *
@@ -54,6 +51,42 @@ public interface ILibrarySystem {
     public boolean mapAuthorToBook(String fname, String lname, String isbn);
      */
 
+     /* Some more notes: PLAN
+     *
+     * I. Members Screen
+     *
+     * 1. search member
+     * 2. show member
+     * 3. edit member
+     * ok 4. add member
+     * ok 5. show member loans
+     * ok 6. show member reservations
+     * ok 7. show member history
+     * 8. show overdues
+     *
+     * II. Item Screen
+     *
+     * 1. search item
+     * 2. show item
+     * 3. edit item
+     * ok 4. add item
+     * ok 5. add copy
+     * 6. show book/mag borrowing members
+     * 7. show copy borrowing member
+     * 8. show copy history
+     * ok 9. checkout copy
+     * ok 10. return copy
+     * ok 11. reserve book/mag
+     * 12. reserve copy book/mag
+     * 13. create author
+     * ok 14. add author
+     *
+     * III. Reservation Screen (next)
+     * IV. Overdue Screen (next)
+     *
+     * NOTE: We did not emphasis deletion or archiving of elements at this point.
+    */
+
     //SCREEN: MEMBERS
     public HashMap<Long, Member> getAllMembers();
     public Member getMember(long memberId);
@@ -64,15 +97,18 @@ public interface ILibrarySystem {
     //SCREEN: ITEMS/COPIES/LOANS
     public HashMap<Long, LibraryItem> getAllItems();
     public LibraryItem getItem(long itemId);
-    public Book createBook(String title, int maxCheckoutLength,
-            String isbnA, String isbnB, int version, Date published);
+    public Book createBook(String title, int maxCheckoutLength, String isbnA, String isbnB, int version, Date published);
     public Author createAuthor(String fname, String lname);
     public void addBookAuthor(Book book, Author author);
-    public Magazine createMagazine(String title, int maxCheckoutLength,
-            int volume, int issueNo, Date published);
+    public Magazine createMagazine(String title, int maxCheckoutLength, int volume, int issueNo, Date published);
     public HashMap<Long, ActualItem> createCopies(long itemId, int numCopies);
     public Loan lendCopy(long memberId, long copyId);
     public ReturnedLoan returnCopy(long copyId);
-    
+    public Reservation reserveItem(long copyId, long memberId);
 
+    //SCREEN: RESERVATIONS
+    public List<Reservation> getAllReservations();
+
+    //SCREEN: OVERDUE
+    public HashMap<Long, Loan> getAllOverdue();
 }
