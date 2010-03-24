@@ -25,43 +25,7 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-
-         /*Test Plan:
-         *
-         * I. Members Screen
-         *
-         * 1. search member
-         * 2. show member
-         * 3. edit member
-         * ok 4. add member
-         * ok 5. show member loans
-         * ok 6. show member reservations
-         * ok 7. show member history
-         * 8. show overdues
-         *
-         * II. Item Screen
-         *
-         * 1. search item
-         * 2. show item
-         * 3. edit item
-         * ok 4. add item
-         * ok 5. add copy
-         * 6. show book/mag borrowing members
-         * 7. show copy borrowing member
-         * 8. show copy history
-         * ok 9. checkout copy
-         * ok 10. return copy
-         * ok 11. reserve book/mag
-         * 12. reserve copy book/mag
-         * 13. create author
-         * ok 14. add author
-         *
-         * III. Reservation Screen (next)
-         * IV. Overdue Screen (next)
-         *
-         * NOTE: We did not emphasis deletion or archiving of elements at this point.
-        */
-
+        
         LibSystem lib = LibSystem.getInstance();
 
         HashMap<Long, ActualItem> allActualItems = lib.getAllActualItems();

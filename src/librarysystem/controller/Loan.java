@@ -55,6 +55,9 @@ public class Loan implements java.io.Serializable {
     public long getCopyId() {
         return copyId;
     }
+    public long getMemberId() {
+        return memberId;
+    }
 
     //public static List<Loan> getAllOverdue() {
     //    List<Loan> allOverdue = new ArrayList<Loan>();
