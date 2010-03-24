@@ -263,8 +263,6 @@ import librarysystem.controller.Author;
     public Reservation getReservation(long reservationId) { return allReservations.get(reservationId); }
     public ActualItem getActualItem(long copyId) { return allActualItems.get(copyId); }
 
-
-
     //PRIVATE HELPERS
     private Loan getActiveLoan(long copyId){
         Loan ret = null;
@@ -290,11 +288,9 @@ import librarysystem.controller.Author;
         }
         return copy;
     }
-
     private void notifyForReservation(Member member, LibraryItem item){
         //AutoSend a Email or make a Phone call;
     }
-
     private Reservation checkFirstReservation(LibraryItem item){
         Reservation firstReservation = null;
         if (item.getReservationWithoutNotifyCount() != 0){

@@ -27,4 +27,17 @@ public class Magazine extends LibraryItem implements java.io.Serializable {
     public String getType() {
         return this.getClass().getSimpleName();
     }
+
+    public int getIssueNo() {
+        return issueNo;
+    }
+
+    public Date getPublished() {
+        return published;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+    
 }

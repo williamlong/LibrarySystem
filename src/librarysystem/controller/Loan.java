@@ -62,13 +62,7 @@ public class Loan implements java.io.Serializable {
         return memberId;
     }
 
-    //public static List<Loan> getAllOverdue() {
-    //    List<Loan> allOverdue = new ArrayList<Loan>();
-    //
-    //    Collection<Loan> loans = allLoans.values();
-    //    for(Loan loan : loans) {
-    //        if(loan.isOverdue()) allOverdue.add(loan);
-    //    }
-    //    return allOverdue;
-    //}
+    public DateRange getBorrowPeriod() {
+        return borrowPeriod;
+    }
 }

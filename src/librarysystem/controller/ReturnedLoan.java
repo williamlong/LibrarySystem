@@ -18,7 +18,7 @@ public class ReturnedLoan implements java.io.Serializable {
     private boolean wasOverdue;
     private int overdueDays;
 
-    public ReturnedLoan(long loanId, Date actualReturendDate,
+    public ReturnedLoan(long loanId, Date actualReturnedDate,
             boolean wasOverdue, int overdueDays) {
         returnedLoanId = SimulatedIdGenerator.getInstance().generateId();
         this.loanId = loanId;
@@ -33,4 +33,17 @@ public class ReturnedLoan implements java.io.Serializable {
     public long getReturnedLoanId() {
         return returnedLoanId;
     }
+
+    public Date getActualReturnedDate() {
+        return actualReturnedDate;
+    }
+
+    public int getOverdueDays() {
+        return overdueDays;
+    }
+
+    public boolean isWasOverdue() {
+        return wasOverdue;
+    }
+
 }

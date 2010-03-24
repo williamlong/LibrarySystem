@@ -19,7 +19,7 @@ public class Book extends LibraryItem implements java.io.Serializable {
         private Date published;
         private List<Author> authors;
 
-    public Book(String title, int maxCheckoutLength, String isbnn,
+    public Book(String title, int maxCheckoutLength, String isbn,
             int version, Date published) {
         super(title, maxCheckoutLength);
         this.isbn = isbn;
@@ -30,6 +30,22 @@ public class Book extends LibraryItem implements java.io.Serializable {
     
     public void addAuthor(Author author) {
         authors.add(author);
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public Date getPublished() {
+        return published;
+    }
+
+    public int getVersion() {
+        return version;
     }
     public String getType() {
         return this.getClass().getSimpleName();
