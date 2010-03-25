@@ -20,7 +20,7 @@ public class Reservation implements java.io.Serializable, Comparable<Reservation
     private STATUS status;
 
     public enum STATUS{
-        NOAVAILABLECOPY, ONSHELF
+        NOAVAILABLECOPY, ONRESERVEDBOX;
     }
     
     public Reservation(long itemId, long memberId) {

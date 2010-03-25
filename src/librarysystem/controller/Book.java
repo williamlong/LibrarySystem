@@ -14,10 +14,10 @@ import java.util.ArrayList;
  * @author sim
  */
 public class Book extends LibraryItem implements java.io.Serializable {
-        private String isbn;
-        private int version;
-        private Date published;
-        private List<Author> authors;
+    private String isbn;
+    private int version;
+    private Date published;
+    private List<Author> authors;
 
     public Book(String title, int maxCheckoutLength, String isbn,
             int version, Date published) {

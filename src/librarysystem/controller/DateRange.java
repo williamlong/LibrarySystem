@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
  *
  * @author sgamboa
  */
-public class DateRange {
+public class DateRange implements java.io.Serializable {
     private GregorianCalendar start;
     private GregorianCalendar end;
 
